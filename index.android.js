@@ -29,8 +29,16 @@ class MyFirstRNProject extends Component {
   }
   render() {
     return (
-      <View >
-        {this.state.showText ? <Text style={style.myStyle}>Hello world!</Text> : <Text style={style.myStyle}>Coder!</Text>}
+       <View style={{
+        flex: 1,
+        justifyContent: 'center',
+      }}>
+        <View style={{flexDirection:'row',width:400, backgroundColor: 'green',justifyContent:'center'}}>
+          <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
+          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+        </View>      
+        
       </View>
     );
   }
