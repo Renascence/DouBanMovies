@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, Image, View ,StyleSheet,TextInput} from 'react-native';
+import { AppRegistry, Text, Image, View ,StyleSheet,TextInput,ScrollView,ListView} from 'react-native';
 
 class Greeting extends Component {
   render() {
@@ -25,6 +25,46 @@ class Flex extends Component {
     )
   }
 }
+
+class sv extends Component {
+    render() {
+    return (
+        <ScrollView>
+          <Text style={{fontSize:96}}>Scroll me plz</Text>
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Text style={{fontSize:96}}>If you like</Text>
+               <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Text style={{fontSize:96}}>Scrolling down</Text>
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Text style={{fontSize:96}}>What's the best</Text>
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Text style={{fontSize:96}}>Framework around?</Text>
+           <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Image source={require('./img/favicon.jpg')} />
+          <Text style={{fontSize:80}}>React Native</Text>
+        </ScrollView>
+    );
+  }
+}
 const style= StyleSheet.create({
   myStyle:{
     textAlign: 'center',
@@ -34,22 +74,22 @@ const style= StyleSheet.create({
 })
 
 class MyFirstRNProject extends Component {
-
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows([
+        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+      ])
+    };
   }
   render() {
     return (
-       <View style={{padding: 10}}>
-        <TextInput
-          style={{height: 40}}
-          placeholder="Type here to translate!"
-          onChangeText={(text) => this.setState({text})}
+      <View style={{flex: 1, paddingTop: 22}}>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => <Text>{rowData}</Text>}
         />
-        <Text style={{padding: 10, fontSize: 42}}>
-          {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
-        </Text>
       </View>
     );
   }
