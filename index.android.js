@@ -80,10 +80,10 @@ class MyFirstRNProject extends Component {
     this.state = {
       dataSource: ds.cloneWithRows([
         'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
-      ])
+      ]),
+      data: false
     };
   }
-  
   getMoviesFromApiAsync() {
     return fetch('http://facebook.github.io/react-native/movies.json')
       .then((response) => response.json())
@@ -94,15 +94,19 @@ class MyFirstRNProject extends Component {
         console.error(error);
       });
   }
-
   render() {
+    this.getMoviesFromApiAsync().then((res) => {
+      this.setState({
+        data: res
+      })
+      console.log('=====',this.state.data[0])
+    })
     return (
       <View style={{flex: 1, paddingTop: 22}}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData}</Text>}
-        />
-        <Text> getMoviesFromApiAsync()  </Text>
+        
+        {
+          !this.state.data ? <Text>1</Text> : <Text>{this.state.data[0].title}</Text>
+        }
       </View>
     );
   }
