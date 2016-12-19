@@ -83,6 +83,18 @@ class MyFirstRNProject extends Component {
       ])
     };
   }
+  
+  getMoviesFromApiAsync() {
+    return fetch('http://facebook.github.io/react-native/movies.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        return responseJson.movies;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
       <View style={{flex: 1, paddingTop: 22}}>
@@ -90,6 +102,7 @@ class MyFirstRNProject extends Component {
           dataSource={this.state.dataSource}
           renderRow={(rowData) => <Text>{rowData}</Text>}
         />
+        <Text> getMoviesFromApiAsync()  </Text>
       </View>
     );
   }
