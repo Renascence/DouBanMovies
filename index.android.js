@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, Image, View ,StyleSheet,TextInput,ScrollView,ListView} from 'react-native';
+import { AppRegistry, Text, Image, View ,StyleSheet,TextInput,ScrollView,ListView,Navigator} from 'react-native';
+import MyScene from './MyScene';
 
 class Greeting extends Component {
   render() {
@@ -95,19 +96,31 @@ class MyFirstRNProject extends Component {
       });
   }
   render() {
-    this.getMoviesFromApiAsync().then((res) => {
-      this.setState({
-        data: res
-      })
-      console.log('=====',this.state.data[0])
-    })
     return (
-      <View style={{flex: 1, paddingTop: 22}}>
-        
-        {
-          !this.state.data ? <Text>1</Text> : <Text>{this.state.data[0].title}</Text>
+            <Navigator
+        initialRoute={{ title: 'My Initial Scene', index: 0 }}
+        renderScene={(route, navigator) =>
+          <MyScene
+            title={route.title}
+
+            // Function to call when a new scene should be displayed           
+            onForward={ () => {    
+              const nextIndex = route.index + 1;
+              navigator.push({
+                title: 'Scene ' + nextIndex,
+                index: nextIndex,
+              });
+            }}
+
+            // Function to call to go back to the previous scene
+            onBack={() => {
+              if (route.index > 0) {
+                navigator.pop();
+              }
+            }}
+          />
         }
-      </View>
+      />
     );
   }
 }
