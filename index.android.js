@@ -32,7 +32,8 @@ class sv extends Component {
     return (
         <ScrollView>
           <Text style={{fontSize:96}}>Scroll me plz</Text>
-          <Image source={require('./img/favicon.jpg')} />
+          <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+       style={{width: 400, height: 400}} />
           <Image source={require('./img/favicon.jpg')} />
           <Image source={require('./img/favicon.jpg')} />
           <Image source={require('./img/favicon.jpg')} />
