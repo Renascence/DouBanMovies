@@ -33,13 +33,22 @@
           <a id="welcome-to-myfirstrnproject" class="anchor" href="#welcome-to-myfirstrnproject" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome
           to Myfirstrnproject.</h3>
 
-        <p>这篇博客会记录我在使用react-native开发过程中踩过的坑。</p>
+        <p>这篇博客会记录我在使用react-native开发过程中遇到的问题和学习笔记。</p>
         <hr />
         <p><strong> Strict mode does not allow function declarations in a lexically nested statement. </strong></p>
 
-<p>方法一：在新建项目时，使用命令react-native init 项目名 –version 0.38.0</p>
+        <p>方法一：在新建项目时，使用命令react-native init 项目名 –version 0.38.0</p>
 
-<p>方法二：打开工程中node_modules/react-native/Libraries/Core/InitializeCore.js文件找到 112 行，更改function handleError(e, isFatal) 为 var handleError = function(e, isFatal)然后在工程中执行 npm start –reset-cache重新启动。</p>
+        <p>方法二：打开工程中node_modules/react-native/Libraries/Core/InitializeCore.js文件找到 112 行，更改function handleError(e, isFatal)
+          为 var handleError = function(e, isFatal)然后在工程中执行 npm start –reset-cache重新启动。</p>
+
+
+        <p><strong> classname和行内样式混用 </strong></p>
+
+        <p>style={[style.className,{padding:20}]}</p>
+
+        <p><strong> 在使用image组件时，必须设置宽高属性。 </strong></p>
+
       </section>
 
       <aside id="sidebar">
