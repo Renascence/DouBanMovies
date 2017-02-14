@@ -2,86 +2,61 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator } from 'react-native';
 import MyScene from './MyScene';
 
-class Greeting extends Component {
-  render() {
-    return (
-      <Text>Hello {this.props.name}!</Text>
-    );
-  }
-}
-
-class Flex extends Component {
-  render() {
-    return (
-      <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }} />
-        <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
-        <View style={{ width: 50, height: 50, backgroundColor: 'steelblue' }} />
-
-      </View>
-    )
-  }
-}
-
-class sv extends Component {
-  render() {
-    return (
-      <ScrollView>
-        <Text style={{ fontSize: 96 }}>Scroll me plz</Text>
-        <Image source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }}
-          style={{ width: 400, height: 400 }} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Text style={{ fontSize: 96 }}>If you like</Text>
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Text style={{ fontSize: 96 }}>Scrolling down</Text>
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Text style={{ fontSize: 96 }}>What's the best</Text>
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Text style={{ fontSize: 96 }}>Framework around?</Text>
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Image source={require('./img/favicon.jpg')} />
-        <Text style={{ fontSize: 80 }}>React Native</Text>
-      </ScrollView>
-    );
-  }
-}
 const style = StyleSheet.create({
   myStyle: {
     textAlign: 'center',
-    fontSize: 30,
-    color: '#ccc',
+    fontSize: 18,
+    paddingTop: 10
   }
 })
 
 class MyFirstRNProject extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      dataSource: ''
+    }
+    this.fetchData()
+  }
+  fetchData = () => {
+    fetch('http://api.douban.com/v2/movie/in_theaters')
+      .then((resp) => {
+        return resp.json()
+      })
+      .then((res) => {
+        let movieData = []
+        for (var i in res.subjects) {
+          movieData.push(res.subjects[i]['title'])
+        }
+        console.log(movieData)
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 != r2 })
+        this.setState({
+          loading: false,
+          dataSource: ds.cloneWithRows(movieData)
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   render() {
-    return (
-      <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} style={{height:400,width:400}} >
-        <Text style={{color: '#fff'}} >Inside</Text>
-      </Image>
-    )
+    if (this.state.loading) {
+      return (
+        <View>
+          <Text>
+            loading...
+          </Text>
+        </View>
+      )
+    } else {
+      return (
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) => <Text style={style.myStyle}>{rowData}</Text>}
+          />
+      )
+    }
   }
 }
 
