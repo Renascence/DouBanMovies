@@ -26,10 +26,13 @@ class MyFirstRNProject extends Component {
       })
       .then((res) => {
         let movieData = []
+        let imgData = []
         for (var i in res.subjects) {
-          movieData.push(res.subjects[i]['title'])
+          movieData.push([])
+          movieData[i][0] = res.subjects[i]['title']
+          movieData[i][1] = res.subjects[i]['images']['large']
         }
-        console.log(movieData)
+        console.log(res.subjects[0])
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 != r2 })
         this.setState({
           loading: false,
@@ -53,7 +56,11 @@ class MyFirstRNProject extends Component {
       return (
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text style={style.myStyle}>{rowData}</Text>}
+          renderRow={(rowData) =>
+            <View>
+              <Text style={style.myStyle}>{rowData[0]}</Text>
+              <Image source={{ uri: rowData[1] }} style={{ width: 500, height: 300 }}></Image>
+            </View>}
           />
       )
     }
