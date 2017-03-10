@@ -2,13 +2,36 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator } from 'react-native';
 import MyScene from './MyScene';
 
-const style = StyleSheet.create({
-  myStyle: {
-    textAlign: 'center',
-    fontSize: 18,
-    paddingTop: 10
-  }
-})
+const styles = StyleSheet.create({
+  list: {
+    marginTop: 5,
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  row: {
+    justifyContent: 'center',
+    padding: 5,
+    margin: 3,
+    width: 120,
+    height: 200,
+    backgroundColor: '#F6F6F6',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#CCC'
+  },
+  img: {
+    width: 100,
+    height: 150
+  },
+  text: {
+    flex: 1,
+    marginTop: 5,
+    fontWeight: 'bold',
+    alignItems:'center'
+  },
+});
 
 class MyFirstRNProject extends Component {
   constructor(props) {
@@ -55,13 +78,15 @@ class MyFirstRNProject extends Component {
     } else {
       return (
         <ListView
+          contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
           renderRow={(rowData) =>
-            <View>
-              <Text style={style.myStyle}>{rowData[0]}</Text>
-              <Image source={{ uri: rowData[1] }} style={{ width: 500, height: 300 }}></Image>
+            <View style={styles.row}>
+              <Image source={{ uri: rowData[1] }} style={styles.img}></Image>
+              <Text style={styles.text}>{rowData[0]}</Text>
+
             </View>}
-          />
+        />
       )
     }
   }
