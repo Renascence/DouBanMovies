@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator } from 'react-native';
+import { AppRegistry, Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator, TouchableHighlight } from 'react-native';
 import MyScene from './MyScene';
+import SimpleNavigationApp from './components/Navigator';
 
 const styles = StyleSheet.create({
   list: {
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 5,
     fontWeight: 'bold',
-    alignItems:'center'
+    alignItems: 'center'
   },
 });
 
@@ -80,12 +81,24 @@ class MyFirstRNProject extends Component {
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
+          Press={() => {
+            console.log('1')
+          }}
           renderRow={(rowData) =>
-            <View style={styles.row}>
-              <Image source={{ uri: rowData[1] }} style={styles.img}></Image>
-              <Text style={styles.text}>{rowData[0]}</Text>
+            <TouchableHighlight onPress={function () {
+              console.log('aaa')
+            }}>
+              <View style={styles.row} >
+                <Image source={{ uri: rowData[1] }} style={styles.img}></Image>
+                <Text style={styles.text}>{rowData[0]}</Text>
 
-            </View>}
+                <Text>aaaaaaa</Text>
+              </View>
+            </TouchableHighlight>
+
+
+
+          }
         />
       )
     }
