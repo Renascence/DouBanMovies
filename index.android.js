@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator, TouchableHighlight } from 'react-native';
 import MovieList from './components/movieList';
 import TabNavigator from 'react-native-tab-navigator';
-import icons from './components/images/icons'
+import homeIcon from './components/images/home.png'
 
 class MyFirstRNProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      dataSource: ''
+      selectedTab: 'home'
     }
   }
   render() {
     return (
       <TabNavigator>
         <TabNavigator.Item
-          selected={true}
-          title="Home"
-          renderIcon={() => <Image source={icons.star} />}
-          renderSelectedIcon={() => <Image source={icons.star} />}
-          badgeText="1"
+          selected={this.state.selectedTab === 'home'}
+          title="正在上映"
+          renderIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }}/>}
+          renderSelectedIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
+          <MovieList></MovieList>
+        </TabNavigator.Item>
+        <TabNavigator.Item
+          selected={this.state.selectedTab === 'rank'}
+          title="高分排行"
+          renderIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }}/>}
+          renderSelectedIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }} />}
+          onPress={() => this.setState({ selectedTab: 'rank' })}>
           <MovieList></MovieList>
         </TabNavigator.Item>
       </TabNavigator>
