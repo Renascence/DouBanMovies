@@ -41,7 +41,7 @@ class RankList extends Component {
     if (this.state.loading) {
       return (
         <View>
-          <Text>
+          <Text style={{textAlign:'center'}}>
             loading...
           </Text>
         </View>
@@ -51,9 +51,6 @@ class RankList extends Component {
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
-          Press={() => {
-            console.log('1')
-          }}
           renderRow={(rowData) =>
             <TouchableHighlight style={styles.row} underlayColor='rgba(34,26,38,0.1)'
               onPress={function () {

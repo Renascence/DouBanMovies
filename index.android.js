@@ -22,13 +22,33 @@ class MyFirstRNProject extends Component {
           renderIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }} />}
           renderSelectedIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
-          <MovieList></MovieList>
+          <Navigator
+            initialRoute={{ name: 'My First Scene', index: 0 }}
+            renderScene={(route, navigator) =>
+              <MovieList
+                navigator={navigator}
+                name={route.name}
+                onForward={() => {
+                  var nextIndex = route.index + 1;
+                  navigator.push({
+                    name: 'Scene ' + nextIndex,
+                    index: nextIndex,
+                  });
+                }}
+                onBack={() => {
+                  if (route.index > 0) {
+                    navigator.pop();
+                  }
+                }}
+              />
+            }
+          />
         </TabNavigator.Item>
         <TabNavigator.Item
           selected={this.state.selectedTab === 'rank'}
           title="高分排行"
-          renderIcon={() => <Image source={rankIcon} style={{ width: 30, height: 30 }} />}
-          renderSelectedIcon={() => <Image source={rankIcon} style={{ width: 30, height: 30 }} />}
+          renderIcon={() => <Image source={rankIcon} style={{ width: 20, height: 20 }} />}
+          renderSelectedIcon={() => <Image source={rankIcon} style={{ width: 20, height: 20 }} />}
           onPress={() => this.setState({ selectedTab: 'rank' })}>
           <RankList></RankList>
         </TabNavigator.Item>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator, TouchableHighlight } from 'react-native';
 import styles from './styles/styles'
+import MovieDetail from './movieDetail'
 
 class MovieList extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class MovieList extends Component {
       dataSource: ''
     }
     this.fetchData()
+    this.showDetail = this.showDetail.bind(this)
+    this.renderMovieList = this.renderMovieList.bind(this)
+    let that = this
   }
   fetchData = () => {
     fetch('http://api.douban.com/v2/movie/in_theaters')
@@ -24,7 +28,6 @@ class MovieList extends Component {
           movieData[i][0] = res.subjects[i]['title']
           movieData[i][1] = res.subjects[i]['images']['large']
         }
-        console.log(res.subjects[0])
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 != r2 })
         this.setState({
           loading: false,
@@ -35,11 +38,37 @@ class MovieList extends Component {
         console.log(err)
       })
   }
+  showDetail(movie) {
+    this.props.navigator.push({
+      title: movie,
+      Component: MovieDetail
+    })
+  }
+  renderMovieList(movie) {
+    return (
+      <TouchableHighlight style={styles.row} underlayColor='rgba(34,26,38,0.1)'
+        onPress={function () {
+          console.log(this.props)
+          this.props.navigator.push(
+            {
+                title: 'Scene ',
+                index: 2,
+              }
+          )
+          console.log('========')
+        }.bind(this)}>
+        <View>
+          <Image source={{ uri: movie[1] }} style={styles.img}></Image>
+          <Text style={styles.text}>{movie[0]}</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
   render() {
     if (this.state.loading) {
       return (
         <View>
-          <Text>
+          <Text style={{ textAlign: 'center' }}>
             loading...
           </Text>
         </View>
@@ -49,20 +78,11 @@ class MovieList extends Component {
         <ListView
           contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
-          Press={() => {
-            console.log('1')
+          renderRow={(rowData) => {
+            return (
+              this.renderMovieList(rowData)
+            )
           }}
-          renderRow={(rowData) =>
-            <TouchableHighlight style={styles.row} underlayColor='rgba(34,26,38,0.1)'
-              onPress={function () {
-                console.log('movie name',rowData[0])
-              }}>
-              <View>
-                <Image source={{ uri: rowData[1] }} style={styles.img}></Image>
-                <Text style={styles.text}>{rowData[0]}</Text>
-              </View>
-            </TouchableHighlight>
-          }
         />
       )
     }
