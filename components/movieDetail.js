@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { Text, Image, View, StyleSheet, TextInput, ScrollView, ListView, Navigator, TouchableHighlight } from 'react-native';
+import { Text, Image, View, Navigator, TouchableOpacity } from 'react-native';
 import styles from './styles/styles'
 
-class MovieDetail extends Component{
+class MovieDetail extends Component {
   render() {
     return (
       <View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.navigator.pop()}>
+          <Text style={styles.buttonText}>
+            返回上一页
+          </Text>
+        </TouchableOpacity>
         <View>
           <Text>movie detail </Text>
         </View>
-      </View>     
+      </View>
     )
   }
 }
