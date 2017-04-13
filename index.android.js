@@ -5,6 +5,7 @@ import RankList from './components/rankList';
 import TabNavigator from 'react-native-tab-navigator';
 import rankIcon from './components/images/rank.png';
 import homeIcon from './components/images/home.png';
+import MovieDetail from './components/movieDetail'
 
 class MyFirstRNProject extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class MyFirstRNProject extends Component {
           renderSelectedIcon={() => <Image source={homeIcon} style={{ width: 30, height: 30 }} />}
           onPress={() => this.setState({ selectedTab: 'home' })}>
           <Navigator
-            initialRoute={{ name: 'My First Scene', index: 0 }}
+            initialRoute={{ name: '正在上映', index: 0 }}
             renderScene={(route, navigator) =>
               <MovieList
                 navigator={navigator}
@@ -33,6 +34,7 @@ class MyFirstRNProject extends Component {
                   navigator.push({
                     name: 'Scene ' + nextIndex,
                     index: nextIndex,
+                    component: MovieDetail
                   });
                 }}
                 onBack={() => {
