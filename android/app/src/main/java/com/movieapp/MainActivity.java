@@ -1,4 +1,4 @@
-package com.myfirstrnproject;
+package com.movieapp;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "MyFirstRNProject";
+        return "movieApp";
     }
 }

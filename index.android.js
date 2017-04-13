@@ -6,7 +6,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import rankIcon from './components/images/rank.png';
 import homeIcon from './components/images/home.png';
 
-class MyFirstRNProject extends Component {
+class movieApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,4 +57,4 @@ class MyFirstRNProject extends Component {
   }
 }
 
-AppRegistry.registerComponent('MyFirstRNProject', () => MyFirstRNProject);
+AppRegistry.registerComponent('movieApp', () => movieApp);
