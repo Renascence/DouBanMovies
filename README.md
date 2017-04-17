@@ -1,3 +1,3 @@
 # MyFirstRNProject
 
-[我在开发过程中遇到的一些问题记录](https://renascence.github.io/MyFirstRNProject/)
+最近开发遇到一些问题，打算等1.0正式版发布时继续这个项目的开发（囧）。
